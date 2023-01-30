@@ -6,7 +6,7 @@
 
 
 
-#  Dosyaları çalıştırmak için bilgisayaranızda apache sunucusunun yüklü olması gerekir.
+  Dosyaları çalıştırmak için bilgisayaranızda apache sunucusunun yüklü olması gerekir.
 dosyalari incelediyseniz baglanti.php dosyasının olmadğını görmüşsünüzdür localhost sunucu baglantısı için 
 
 <?php
