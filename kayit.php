@@ -7,7 +7,7 @@ include("baglanti.php")
 $username_err="";
 $email_err="";
 $okul_err="";
-$parola_err="";
+$sifre_err="";
 $repass_err="";
 $pn_err="";
 
@@ -15,80 +15,100 @@ if(isset($_POST["sumbit"]))
 
 {
   // Kullanıcı adı doğrulama
-  if(empty($_POST["kullaniciadi"]))
+  if(empty($_POST["kullanici_adi"]))
   {
     $username_err="Kullanıcı adı boş geçilemez.";
   }
-  else if(strlen($_POST["kullaniciadi"])<10)
+  else if(strlen($_POST["kullanici_adi"])<10)
   {
     $username_err="Kullanıcı adı en az 10 karakter olmalıdır.";
   }
+  else if(strlen($_POST["kullanici_adi"])>25)
+  {
+    $username_err="Kullanıcı adı en fazla 25 karakter olmalıdır.";
+  }
  
     else{
-      $username=$_POST[kullaniciadi];
+      $username=$_POST[kullanici_adi];
     }
 
 
     // Email doğrulama
-    if(empty($_POST["email"]))
+    if(empty($_POST["e_mail"]))
     {
       $email_err="Email boş geçilemez.";
     }
-    else if (!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
+    else if (!filter_var($_POST["e_mail"], FILTER_VALIDATE_EMAIL)) {
       $email_err = "Geçersiz email formatı.";
     }
+  else if(strlen($_POST["e_mail"])>25)
+  {
+    $email_err="Email adresi en fazla 25 karakter olmalıdır.";
+  }
     else{
-      $email=$_POST[email];
+      $email=$_POST[e_mail];
     }
 
 
            // numara
-  if(empty($_POST["nmara"]))
+  if(empty($_POST["numara"]))
   {
     $pn_err="Numara  boş geçilemez.";
+  }
+  else if(strlen($_POST["numara"])>12)
+  {
+    $pn_err="Numaranız  en fazla 12 karakter olmalıdır.";
   }
  
  
     else{
-      $nmara=$_POST[nmara];
+      $numara=$_POST[numara];
     }
 
 
        // Okul adı doğrulama
-  if(empty($_POST["okuladi"]))
+  if(empty($_POST["okul_adi"]))
   {
     $okul_err="Okul adı boş geçilemez.";
   }
-  else if(strlen($_POST["okuladi"])<6)
+  else if(strlen($_POST["okul_adi"])<6)
   {
     $okul_err="Okul adı en az 6 karakter olmalıdır.";
   }
+  else if(strlen($_POST["okul_adi"])>25)
+  {
+    $okul_err="Okul adı en fazla 25 karakter olmalıdır.";
+  }
  
     else{
-      $okuladi=$_POST[okuladi];
+      $okul_adi=$_POST[okul_adi];
     }
 
 
     // Parola doğrulama
-    if(empty($_POST["parola"]))
+    if(empty($_POST["sifre"]))
     {
-      $parola_err="Lütfen şifre giriniz.";
+      $sifre_err="Lütfen şifre giriniz.";
     }
+  else if(strlen($_POST["sifre"])>21)
+  {
+    $sifre_err="Şifreniz en fazla 21 karakter olmalıdır.";
+  }
     else{
-      $parola=password_hash($_POST["parola"],PASSWORD_DEFAULT);
+      $sifre=password_hash($_POST["sifre"],PASSWORD_DEFAULT);
     }
 
     // REPASS doğrulama
-    if(empty($_POST["parolatkr"]))
+    if(empty($_POST["sifretkr"]))
     {
       $repass_err="Lütfen şifrenizi doğrulayınız.";
     }
-    else if($_POST["parola"]!=$_POST["parolatkr"])
+    else if($_POST["sifre"]!=$_POST["sifretkr"])
     {
       $repass_err="Şifreler eşleşmiyor.";
     }
     else{
-      $paorlatkr=$_POST["parolatkr"];
+      $sifretkr=$_POST["sifretkr"];
     }
 
 
@@ -99,7 +119,7 @@ if(isset($_POST["sumbit"]))
 
 
 
-  if(isset($username) && isset($email) && isset($nmara) && isset($okuladi) && isset($parola) && isset($paorlatkr))
+  if(isset($username) && isset($e_mail) && isset($numara) && isset($okul_adi) && isset($sifre) && isset($sifretkr))
   {
 
 
@@ -107,7 +127,7 @@ if(isset($_POST["sumbit"]))
     $name=$_POST["kullaniciadi"];
     $email=$_POST["email"];
 
-    $ekle="INSERT INTO `kullanicilar` (`id`, `kullanici_adi`, `email`, `nmara`,  `okuladi`, `parola`, `kayit_tarihi`) VALUES (NULL, '$username', '$email', '$nmara', '$okuladi', '$parola', CURRENT_TIMESTAMP)";
+    $ekle="INSERT INTO `#veritabanı` (`id`, `kullanici`, `e_mail`, `numara`,  `okula_di`, `sifre`) VALUES (NULL, '$username', '$e_mail', '$numara', '$okul_adi', '$sifre')";
     $calistirekle = mysqli_query($baglanti,$ekle);
     
 
@@ -189,7 +209,7 @@ if(isset($_POST["sumbit"]))
                 }
                 ?>
                 "
-                id="exampleInputEmail1" name="kullaniciadi" maxlength="20" minlength="10">
+                id="exampleInputEmail1" name="kullanici_adi" maxlength="20" minlength="10">
                 <div class="invalid-feedback">
         <?php 
       echo $username_err;  
@@ -209,7 +229,7 @@ if(isset($_POST["sumbit"]))
                 ?>
                 "
                 
-                id="exampleInputEmail1" aria-describedby="emailHelp" name="email" placeholder="@ " maxlength="35" minlength="15">
+                id="exampleInputEmail1" aria-describedby="emailHelp" name="e_mail" placeholder="@ " maxlength="35" minlength="15">
                 <div class="invalid-feedback">
         <?php
       echo $email_err;
@@ -228,7 +248,7 @@ if(isset($_POST["sumbit"]))
                 ?>
                 "
                 
-                id="exampleInputEmail1" aria-describedby="emailHelp" name="nmara" placeholder="0########## gibi yazınız " maxlength="11" minlength="10">
+                id="exampleInputEmail1" aria-describedby="emailHelp" name="numara" placeholder="0########## gibi yazınız " maxlength="11" minlength="10">
                 <div class="invalid-feedback">
         <?php
       echo $pn_err;
@@ -250,7 +270,7 @@ if(isset($_POST["sumbit"]))
                 
                 "
                 
-                id="exampleInputokul1" name="okuladi" maxlength="40" minlength="15">
+                id="exampleInputokul1" name="okul_adi" maxlength="40" minlength="15">
                 <div class="invalid-feedback">
         <?php
       echo $okul_err;
@@ -262,7 +282,7 @@ if(isset($_POST["sumbit"]))
                 <input type="password" class="form-control 
 
                 <?php
-                if(!empty($parola_err))
+                if(!empty($sifre_err))
                 {
                   echo "is-invalid";
                 }
@@ -271,10 +291,10 @@ if(isset($_POST["sumbit"]))
                 
                 "
                 
-                id="exampleInputPassword1" name="parola" placeholder="🔑" maxlength="20" minlength="6">
+                id="exampleInputPassword1" name="sifre" placeholder="🔑" maxlength="20" minlength="6">
                 <div class="invalid-feedback">
         <?php
-      echo $parola_err;
+      echo $sifre_err;
       ?>
       </div>
 
@@ -291,7 +311,7 @@ if(isset($_POST["sumbit"]))
                 
                 
               s
-               " id="exampleInputPassword1" name="parolatkr" maxlength="20" minlength="6">
+               " id="exampleInputPassword1" name="sifretkr" maxlength="20" minlength="6">
                 <div class="invalid-feedback">
         <?php
       echo $repass_err;
