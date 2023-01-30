@@ -1,5 +1,11 @@
 # apache.server
 
+<h3 style="color: red;">I delete the files cause they had a cyber security vulnerability</h3>
+
+
+
+
+
 #  Dosyaları çalıştırmak için bilgisayaranızda apache sunucusunun yüklü olması gerekir.
 dosyalari incelediyseniz baglanti.php dosyasının olmadğını görmüşsünüzdür localhost sunucu baglantısı için 
 
