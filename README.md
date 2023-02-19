@@ -13,7 +13,7 @@ dosyalari incelediyseniz baglanti.php dosyasının olmadğını görmüşsünüz
     $sunucu_adi = "localhost";
     $kullanici_adi = "root";
     $sifre = "#sifreniz";
-    $veri_tabani = "#veritabanı_ dı";
+    $veri_tabani = "#veritabanı_adı";
     $baglanti = new mysqli($sunucu_adi, $kullanici_adi, $sifre, $veri_tabani, 3306);
 
     if($baglanti->connect_error)
